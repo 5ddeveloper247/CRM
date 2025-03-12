@@ -397,25 +397,25 @@ function getCancelledTasksListResponse(response) {
                 statusTxt = 'Cancelled';
                 notification_dot_color = 'red';
             }
-            var taskRow = `<tr class="align-items-center identify1">
+            var taskRow = `<tr class="align-items-center identify2">
                                 <td class="nowrap">${index + 1}</td>
-                                <td class="nowrap grid-p-searchby"><div title="${statusTxt}" style="position: relative; width: 20px; height: 20px; display:inline;margin-right:15px;">
+                                <td class="nowrap grid-p-searchby2"><div title="${statusTxt}" style="position: relative; width: 20px; height: 20px; display:inline;margin-right:15px;">
                                 <span style="position: absolute; top: 0; right: 0; width: 10px; height: 10px; background-color: ${notification_dot_color}; border-radius: 50%; display: inline-block;"></span>
                             </div>${formatDate(task.created_at)}</td>
-                                <td class="nowrap grid-p-searchby">${task.task_title}</td>
-                                <td class="nowrap grid-p-searchby">${task.building && task.building.building_name ? task.building.building_name : 'Deleted'}</td>
-                                <td class="nowrap grid-p-searchby">${task.appartment && task.appartment.apartment_name ? task.appartment.apartment_name : 'Deleted'}</td>
+                                <td class="nowrap grid-p-searchby2">${task.task_title}</td>
+                                <td class="nowrap grid-p-searchby2">${task.building && task.building.building_name ? task.building.building_name : 'Deleted'}</td>
+                                <td class="nowrap grid-p-searchby2">${task.appartment && task.appartment.apartment_name ? task.appartment.apartment_name : 'Deleted'}</td>
                                 <td>${priority}</td>
                                
-                                <td class="nowrap grid-p-searchby">
+                                <td class="nowrap grid-p-searchby2">
                                 ${task.document_status == 1
                     ? ` <a href="${task.document}" id="" class="site_btn" data-id="${task.id}" style="padding: unset;height:32px;padding-left: 10px; padding-right: 10px;" download>Download</a>`
                     : `<a href="${task.document}" id="downloadDocumentBtn" class="site_btn" data-id="${task.id}" style="padding: unset;height:32px;padding-left: 10px; padding-right: 10px;" download>Download</a>`}
                                     </td>
 
-                                <td class="nowrap grid-p-searchby" data-center>${document_typeTxt}</td>
-                                <td class="nowrap grid-p-searchby" data-center>${task.document_status == 0 ? 'Uploaded' : 'Viewed'}</td>
-                                <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
+                                <td class="nowrap grid-p-searchby2" data-center>${document_typeTxt}</td>
+                                <td class="nowrap grid-p-searchby2" data-center>${task.document_status == 0 ? 'Uploaded' : 'Viewed'}</td>
+                                <td class="nowrap grid-p-searchby2"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                 <td class="nowrap">
                                 <div class="act_btn">
                                 <button type="button" class="pop_btn viewdetailsbtn" title="View Timeline" data-id = "${task.id}" data-popup="viewdetailspopup"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg></button>
@@ -861,6 +861,24 @@ $('#searchInListing1').on("keyup", function (e) {
         var val = $.trim(this.value).toLowerCase();
         el = tr.filter(function () {
             return $(this).find('.grid-p-searchby').text().toLowerCase().match(val);
+        });
+        if (el.length >= 1) {
+            noElem = false;
+        }
+        tr.not(el).hide();
+        el.fadeIn().show();
+    } else {
+        tr.fadeIn().show();
+    }
+});
+$('#searchInListing2').on("keyup", function (e) {
+    // console.log('SDF');
+    var tr = $('.identify2');
+    if ($(this).val().length >= 1) {//character limit in search box.
+        var noElem = true;
+        var val = $.trim(this.value).toLowerCase();
+        el = tr.filter(function () {
+            return $(this).find('.grid-p-searchby2').text().toLowerCase().match(val);
         });
         if (el.length >= 1) {
             noElem = false;

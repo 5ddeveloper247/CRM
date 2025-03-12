@@ -508,6 +508,22 @@ function getTaskListResponse(response) {
                             </tr>`;
         cancelledtaskTableBody.append(taskRow);
     });
+    if(cancelled_tasks_list.length > 0){
+        // _cancelled_task_table
+        if ($.fn.DataTable.isDataTable('#_cancelled_task_table')) {
+            $('#_cancelled_task_table').DataTable().destroy();
+        }
+        $('#_cancelled_task_table').DataTable({
+            destroy: true, // Ensures reinitialization
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "responsive": true,
+            dom: '<"row"<"col-md-12"f>>rtip' // Ensures the search bar gets col-md-12
+        });
+    }
 }
 
 $(document).on("click", "#delete_confirmed_btn", function () {

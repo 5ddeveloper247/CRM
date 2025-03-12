@@ -502,17 +502,17 @@ thead {
 
         <div class="top_head mt-5">
             <h4>All Cancelled Tasks</h4>
-            <div class="form_blk">
+            {{-- <div class="form_blk">
                 <input type="text" name="" id="searchInListing" class="text_box" placeholder="Search here">
                 <button type="button"><img src="{{asset('assets/images/icon-search.svg')}}" alt=""></button>
-            </div>
+            </div> --}}
         </div>
                 <div class="top_head"></div>
                 <div class="blk">
-                    <div class="tbl_blk">
+                    <div class="">
                         <div id="Inspection" class="tab-pane fade active in">
                             <div class="table-responsive">
-                                <table id="_cancelled_task_table">
+                                <table id="_cancelled_task_table" class="table table-striped table-bordered table-hover table-responsive display" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>#</th>

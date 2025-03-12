@@ -478,7 +478,7 @@ thead {
         <div class="top_head mt-5">
             <h4>All Cancelled Tasks</h4>
             <div class="form_blk">
-                <input type="text" name="" id="searchInListing" class="text_box" placeholder="Search here">
+                <input type="text" name="" id="searchInListing2" class="text_box" placeholder="Search here">
                 <button type="button"><img src="{{asset('assets/images/icon-search.svg')}}" alt=""></button>
             </div>
         </div>
