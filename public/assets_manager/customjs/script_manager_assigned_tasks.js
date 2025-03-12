@@ -245,24 +245,24 @@ function getDoneTasksListResponse(response) {
             }
             if (status == 1 || status == '1') {
                 statusTxt = 'Assigned';
-                notification_dot_color = 'grey';
+                notification_dot_color = '#89BE3A';
 
             }
             if (status == 2 || status == '2') {
                 statusTxt = 'Working On it';
-                notification_dot_color = 'green';
+                notification_dot_color = '#FFC300';
             }
             if (status == 3 || status == '3') {
                 statusTxt = 'Hold';
-                notification_dot_color = 'blue';
+                notification_dot_color = '#FF5733';
             }
             if (status == 4 || status == '4') {
                 statusTxt = 'Stuck';
-                notification_dot_color = 'yellow';
+                notification_dot_color = '#9B59B6';
             }
             if (status == 5 || status == '5') {
                 statusTxt = 'Done';
-                notification_dot_color = 'transparent';
+                notification_dot_color = '#2ECC71';
             }
             var taskRow = `<tr class="align-items-center identify1">
                                 <td class="nowrap">${index + 1}</td>
@@ -374,28 +374,28 @@ function getCancelledTasksListResponse(response) {
             }
             if (status == 1 || status == '1') {
                 statusTxt = 'Assigned';
-                notification_dot_color = 'grey';
+                notification_dot_color = '#89BE3A';
 
             }
             if (status == 2 || status == '2') {
                 statusTxt = 'Working On it';
-                notification_dot_color = 'green';
+                notification_dot_color = '#FFC300';
             }
             if (status == 3 || status == '3') {
                 statusTxt = 'Hold';
-                notification_dot_color = 'blue';
+                notification_dot_color = '#FF5733';
             }
             if (status == 4 || status == '4') {
                 statusTxt = 'Stuck';
-                notification_dot_color = 'yellow';
+                notification_dot_color = '#9B59B6';
             }
             if (status == 5 || status == '5') {
                 statusTxt = 'Done';
-                notification_dot_color = 'transparent';
+                notification_dot_color = '#2ECC71';
             }
             if (status == 6 || status == '6') {
                 statusTxt = 'Cancelled';
-                notification_dot_color = 'red';
+                notification_dot_color = '#FF0000';
             }
             var taskRow = `<tr class="align-items-center identify2">
                                 <td class="nowrap">${index + 1}</td>
@@ -1134,25 +1134,26 @@ function getfilteredcompletedtasksResponse(response) {
                 }
                 if (status == 1 || status == '1') {
                     statusTxt = 'Assigned';
-                    notification_dot_color = 'grey';
+                    notification_dot_color = '#89BE3A';
 
                 }
                 if (status == 2 || status == '2') {
                     statusTxt = 'Working On it';
-                    notification_dot_color = 'green';
+                    notification_dot_color = '#FFC300';
                 }
                 if (status == 3 || status == '3') {
                     statusTxt = 'Hold';
-                    notification_dot_color = 'blue';
+                    notification_dot_color = '#FF5733';
                 }
                 if (status == 4 || status == '4') {
                     statusTxt = 'Stuck';
-                    notification_dot_color = 'yellow';
+                    notification_dot_color = '#9B59B6';
                 }
                 if (status == 5 || status == '5') {
                     statusTxt = 'Done';
-                    notification_dot_color = 'transparent';
+                    notification_dot_color = '#2ECC71';
                 }
+                // console.log(statusTxt);
                 var taskRow = `<tr class="align-items-center identify">
                                 <td class="nowrap">${index + 1}</td>
                                 <td class="nowrap grid-p-searchby"><div title="${statusTxt}" style="position: relative; width: 20px; height: 20px; display:inline;margin-right:15px;">
