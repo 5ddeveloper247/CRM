@@ -1,6 +1,6 @@
 $(document).on('click', '.edit_btn', function () {
     $('#status_update_form')[0].reset();
-    // $('#attachment_upload_btn').text('Select a file')
+    $('#attachment_upload_btn').html('Add Attachment<svg style="margin-left:14px;"height="17" viewBox="0 0 1792 1792" width="17" xmlns="http://www.w3.org/2000/svg"><path d="M1344 1472q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm256 0q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128-224v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h427q21 56 70.5 92t110.5 36h256q61 0 110.5-36t70.5-92h427q40 0 68 28t28 68zm-325-648q-17 40-59 40h-256v448q0 26-19 45t-45 19h-256q-26 0-45-19t-19-45v-448h-256q-42 0-59-40-17-39 14-69l448-448q18-19 45-19t45 19l448 448q31 30 14 69z"/></svg></p>')
     $('#update_task_status_btn').prop('disabled', false);
     $('#task_id').val('');
     var task_id = $(this).attr('data-id');
@@ -99,28 +99,28 @@ function getTaskListResponse(response) {
             }
             if (status == 1 || status == '1') {
                 statusTxt = 'Assigned';
-                notification_dot_color = 'grey';
+                notification_dot_color = '#89BE3A';
 
             }
             if (status == 2 || status == '2') {
                 statusTxt = 'Working On it';
-                notification_dot_color = 'green';
+                notification_dot_color = '#FFC300';
             }
             if (status == 3 || status == '3') {
                 statusTxt = 'Hold';
-                notification_dot_color = 'blue';
+                notification_dot_color = '#FF5733';
             }
             if (status == 4 || status == '4') {
                 statusTxt = 'Stuck';
-                notification_dot_color = 'yellow';
+                notification_dot_color = '#9B59B6';
             }
             if (status == 5 || status == '5') {
                 statusTxt = 'Done';
-                notification_dot_color = 'transparent';
+                notification_dot_color = '#2ECC71';
             }
             if (status == 6 || status == '6') {
                 statusTxt = 'Cancelled';
-                notification_dot_color = 'red';
+                notification_dot_color = '#FF0000';
             }
             var taskRow = `<tr class="align-items-center identify">
                                 <td class="nowrap">${index + 1}</td>
@@ -141,7 +141,7 @@ function getTaskListResponse(response) {
                                     <td class="nowrap grid-p-searchby" data-center>${document_typeTxt}</td>
                                     <td class="nowrap grid-p-searchby" data-center>${task.document_status == 0 ? 'Uploaded' : 'Viewed'}</td>
                                
-                                    <td class="nowrap grid-p-searchby">${statusTxt}</td>
+                                    <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                
                                 <td class="nowrap" data-center>
                                     <div class="act_btn">
@@ -282,7 +282,7 @@ function getDoneTasksListResponse(response) {
 
                                 <td class="nowrap grid-p-searchby" data-center>${document_typeTxt}</td>
                                 <td class="nowrap grid-p-searchby" data-center>${task.document_status == 0 ? 'Uploaded' : 'Viewed'}</td>
-                                <td class="nowrap grid-p-searchby">${statusTxt}</td>
+                                <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                 <td class="nowrap">
                                 <div class="act_btn">
                                 <button type="button" class="pop_btn viewdetailsbtn" title="View Timeline" data-id = "${task.id}" data-popup="viewdetailspopup"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg></button>
@@ -415,7 +415,7 @@ function getCancelledTasksListResponse(response) {
 
                                 <td class="nowrap grid-p-searchby" data-center>${document_typeTxt}</td>
                                 <td class="nowrap grid-p-searchby" data-center>${task.document_status == 0 ? 'Uploaded' : 'Viewed'}</td>
-                                <td class="nowrap grid-p-searchby">${statusTxt}</td>
+                                <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                 <td class="nowrap">
                                 <div class="act_btn">
                                 <button type="button" class="pop_btn viewdetailsbtn" title="View Timeline" data-id = "${task.id}" data-popup="viewdetailspopup"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg></button>
@@ -955,24 +955,24 @@ function get_filtered_tasksResponse(response) {
                 }
                 if (status == 1 || status == '1') {
                     statusTxt = 'Assigned';
-                    notification_dot_color = 'grey';
+                    notification_dot_color = '#89BE3A';
 
                 }
                 if (status == 2 || status == '2') {
                     statusTxt = 'Working On it';
-                    notification_dot_color = 'green';
+                    notification_dot_color = '#FFC300';
                 }
                 if (status == 3 || status == '3') {
                     statusTxt = 'Hold';
-                    notification_dot_color = 'blue';
+                    notification_dot_color = '#FF5733';
                 }
                 if (status == 4 || status == '4') {
                     statusTxt = 'Stuck';
-                    notification_dot_color = 'yellow';
+                    notification_dot_color = '#9B59B6';
                 }
                 if (status == 5 || status == '5') {
                     statusTxt = 'Done';
-                    notification_dot_color = 'transparent';
+                    notification_dot_color = '#2ECC71';
                 }
                 var taskRow = `<tr class="align-items-center identify">
                                 <td class="nowrap">${index + 1}</td>
@@ -993,7 +993,7 @@ function get_filtered_tasksResponse(response) {
                                     <td class="nowrap grid-p-searchby" data-center>${document_typeTxt}</td>
                                     <td class="nowrap grid-p-searchby" data-center>${task.document_status == 0 ? 'Uploaded' : 'Viewed'}</td>
                                
-                                    <td class="nowrap grid-p-searchby">${statusTxt}</td>
+                                    <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                
                                 <td class="nowrap" data-center>
                                     <div class="act_btn">

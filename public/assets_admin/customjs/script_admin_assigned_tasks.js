@@ -212,15 +212,15 @@ function getTaskListResponse(response) {
         }
         if (status == 4 || status == "4") {
             statusTxt = "Stuck";
-            notification_dot_color = "yellow";
+            notification_dot_color = "#9B59B6";
         }
         if (status == 5 || status == "5") {
             statusTxt = "Done";
-            notification_dot_color = "transparent";
+            notification_dot_color = "#2ECC71";
         }
         if (status == 6 || status == "6") {
             statusTxt = "Cancelled";
-            notification_dot_color = "red";
+            notification_dot_color = "#FF0000";
         }
         // console.log(notification_dot_color);
         var taskRow = `<tr class="align-items-center identify">
@@ -330,27 +330,27 @@ function getTaskListResponse(response) {
         }
         if (status == 1 || status == "1") {
             statusTxt = "Assigned";
-            notification_dot_color = "transparent";
+            notification_dot_color = "#89BE3A";
         }
         if (status == 2 || status == "2") {
             statusTxt = "Working On it";
-            notification_dot_color = "green";
+            notification_dot_color = "#FFC300";
         }
         if (status == 3 || status == "3") {
             statusTxt = "Hold";
-            notification_dot_color = "blue";
+            notification_dot_color = "#FF5733";
         }
         if (status == 4 || status == "4") {
             statusTxt = "Stuck";
-            notification_dot_color = "yellow";
+            notification_dot_color = "#9B59B6";
         }
         if (status == 5 || status == "5") {
             statusTxt = "Done";
-            notification_dot_color = "transparent";
+            notification_dot_color = "#2ECC71";
         }
         if (status == 6 || status == "6") {
             statusTxt = "Cancelled";
-            notification_dot_color = "red";
+            notification_dot_color = "#FF0000";
         }
         var taskRow = `<tr class="align-items-center identify1">
                                 <td class="nowrap">${index + 1}</td>
@@ -382,7 +382,7 @@ function getTaskListResponse(response) {
                                         ? "Viewed"
                                         : "Uploaded"
                                 }</td>
-                                <td class="nowrap grid-p-searchby">${statusTxt}</td>
+                                <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                 
                                
                                 <td class="nowrap" data-center>
@@ -436,27 +436,27 @@ function getTaskListResponse(response) {
         }
         if (status == 1 || status == "1") {
             statusTxt = "Assigned";
-            notification_dot_color = "transparent";
+            notification_dot_color = "#89BE3A";
         }
         if (status == 2 || status == "2") {
             statusTxt = "Working On it";
-            notification_dot_color = "green";
+            notification_dot_color = "#FFC300";
         }
         if (status == 3 || status == "3") {
             statusTxt = "Hold";
-            notification_dot_color = "blue";
+            notification_dot_color = "#FF5733";
         }
         if (status == 4 || status == "4") {
             statusTxt = "Stuck";
-            notification_dot_color = "yellow";
+            notification_dot_color = "#9B59B6";
         }
         if (status == 5 || status == "5") {
             statusTxt = "Done";
-            notification_dot_color = "transparent";
+            notification_dot_color = "#2ECC71";
         }
         if (status == 6 || status == "6") {
             statusTxt = "Cancelled";
-            notification_dot_color = "red";
+            notification_dot_color = "#FF0000";
         }
         var taskRow = `<tr class="align-items-center identify1">
                                 <td class="nowrap">${index + 1}</td>
@@ -488,7 +488,7 @@ function getTaskListResponse(response) {
                                         ? "Viewed"
                                         : "Uploaded"
                                 }</td>
-                                <td class="nowrap grid-p-searchby">${statusTxt}</td>
+                                <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                 
                                
                                 <td class="nowrap" data-center>
@@ -917,7 +917,7 @@ function get_filtered_tasksResponse(response) {
                                                 ? "Viewed"
                                                 : "Uploaded"
                                         }</td>
-                                        <td class="nowrap grid-p-searchby">${statusTxt}</td>
+                                        <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                         
                                        
                                         <td class="nowrap" data-center>
@@ -1067,19 +1067,19 @@ function getfilteredcompletedtasksResponse(response) {
                 }
                 if (status == 2 || status == "2") {
                     statusTxt = "Working On it";
-                    notification_dot_color = "green";
+                    notification_dot_color = "#FFC300";
                 }
                 if (status == 3 || status == "3") {
                     statusTxt = "Hold";
-                    notification_dot_color = "blue";
+                    notification_dot_color = "#FF5733";
                 }
                 if (status == 4 || status == "4") {
                     statusTxt = "Stuck";
-                    notification_dot_color = "yellow";
+                    notification_dot_color = "#9B59B6";
                 }
                 if (status == 5 || status == "5") {
                     statusTxt = "Done";
-                    notification_dot_color = "transparent";
+                    notification_dot_color = "#2ECC71";
                 }
                 var taskRow = `<tr class="align-items-center identify1">
                                         <td class="nowrap">${index + 1}</td>
@@ -1106,7 +1106,7 @@ function getfilteredcompletedtasksResponse(response) {
                                                 ? "Viewed"
                                                 : "Uploaded"
                                         }</td>
-                                        <td class="nowrap grid-p-searchby">${statusTxt}</td>
+                                        <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                         
                                        
                                         <td class="nowrap" data-center>
