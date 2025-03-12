@@ -21,7 +21,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
             li.innerHTML = `
                 <div class="thumb">
                     <img src="${e.target.result}" alt="">
-                    <button type="button" class="x_btn" onclick="removeNewImage(this)">&times;</button>
+                    <button type="button" class="x_btn" onclick="removeNewImage(this)"></button>
                 </div>
             `;
             previewList.appendChild(li);

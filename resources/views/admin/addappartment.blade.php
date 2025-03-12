@@ -39,7 +39,7 @@
                                     </h5>
                                 </div>
                                 <div class="form_row row">
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Building<sup>*</sup></h6>
                                             <select name="building" id="building" class="form-control text_box select2">
@@ -51,19 +51,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Apartment No<sup>*</sup></h6>
                                             <input type="text" name="apartment_no" id="apartment_no" class="text_box" placeholder="eg: A-101" maxlength="255">
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Apartment Name<sup>*</sup></h6>
                                             <input type="text" name="apartment_name" id="apartment_name" class="text_box" placeholder="eg: Ocean View" maxlength="255">
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Category<sup>*</sup></h6>
                                             <select name="category" id="category" class="form-control text_box">
@@ -74,7 +74,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Apartment Type<sup>*</sup></h6>
                                             <select name="apartment_type" id="apartment_type" class="form-control text_box">
@@ -85,19 +85,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6 d-none" id="number_of_rooms_div">
+                                    <div class="col-xs-4 d-none" id="number_of_rooms_div">
                                         <div class="form_blk">
                                             <h6>Number of Rooms<sup>*</sup></h6>
                                             <input type="number" name="number_of_rooms" id="number_of_rooms"placeholder="No. of Rooms" class="form-control text_box">
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Apartment Size (sqft)<sup>*</sup></h6>
                                             <input type="number" name="apartment_size" id="apartment_size" class="text_box" placeholder="eg: 1200.00" maxlength="10">
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Status</h6>
                                             <select name="status" id="status" class="form-control text_box" disabled>
@@ -107,25 +107,25 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Unit Purchase Price<sup>*</sup></h6>
                                             <input type="number" name="unit_purchase_price" id="unit_purchase_price" class="text_box" placeholder="eg: 500000.00" maxlength="15">
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Landlord Name<sup>*</sup></h6>
                                             <input type="text" name="landlord_name" id="landlord_name" class="text_box" placeholder="eg: John Doe" maxlength="255">
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Landlord Contact Number<sup>*</sup></h6>
                                             <input type="text" name="landlord_contact_number" id="landlord_contact_number" class="text_box" placeholder="eg: +1234567890" maxlength="15">
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <div class="form_blk">
                                             <h6>Reference Number</h6>
                                             <input type="text" name="reference_number" id="reference_number" class="text_box" placeholder="eg: REF12345" maxlength="50">

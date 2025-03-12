@@ -4,7 +4,19 @@ $('#add_building_btn').click(function () {
 $('#building_image_name_container').click(function () {
     $('#building_image').click();
 });
-
+$(".advance-search").hide();
+$(".advance-minus-icon").hide();
+$(".advance-plus-icon").show();
+$(".advance-search-btn").click(function () {
+    $(".advance-search").toggle();
+    if ($(".advance-search").is(":visible")) {
+        $(".advance-minus-icon").show();
+        $(".advance-plus-icon").hide();
+    } else {
+        $(".advance-minus-icon").hide();
+        $(".advance-plus-icon").show();
+    }
+});
 $('#building_image').change(function () {
 
     var fileName = this.files[0] ? this.files[0].name : 'No jhj Chosen';
@@ -61,6 +73,7 @@ function getCitiesResponse(response) {
 
 
 
+    
 $('#add_building_form').submit(function (e) {
     e.preventDefault();
 
@@ -113,17 +126,46 @@ function storeBuildingResponse(response) {
         timeOut: 3000
     });
 }
-
+// building-advance-search-btn
+$('#building-advance-search-btn').click(function () {
+    getBuildingsList();
+});
+$('#advance-reset-btn').click(function () {
+    $('#building_number_filter').val('');
+    $('#building_name_filter').val('');
+    $('#building_type_filter').val('');
+    // no_of_apartments_filter
+    $('#no_of_apartments_filter').val('');
+    // no_of_floors_filter
+    $('#no_of_floors_filter').val('');
+    $('#building_address_filter').val('');
+    $('#status_filter').val('');
+    getBuildingsList();
+});
 function getBuildingsList() {
     let url = '/admin/getbuildings';
     let type = 'GET';
+    // get filters values
+    let building_number = $('#building_number_filter').val();
+    let building_name = $('#building_name_filter').val();
+    let building_type = $('#building_type_filter').val();
+    let no_of_apartments = $('#no_of_apartments_filter').val();
+    let no_of_floors = $('#no_of_floors_filter').val();
+    let building_address = $('#building_address_filter').val();
+    let status = $('#status_filter').val();
+    url += '?building_number=' + building_number + '&building_name=' + building_name + '&building_type=' + building_type + '&no_of_apartments=' + no_of_apartments + '&no_of_floors=' + no_of_floors + '&building_address=' + building_address + '&status=' + status;
     SendAjaxRequestToServer(type, url, '', '', getBuildingsListResponse, '', '');
 }
 
 
 function getBuildingsListResponse(response) {
+    if ($.fn.DataTable.isDataTable('#buildings_table')) {
+        $('#buildings_table').DataTable().destroy();
+    }
+    console.log("response", response);
     var buildingTableBody = $('#buildings_table_body');
     buildingTableBody.empty();
+    $('#buildings_table_body').html('');
     var buildings = response.buildings_list.buildings_list;
     var residential_buildings = response.buildings_list.residential_list;
     var commercial_buildings = response.buildings_list.commercial_list;
@@ -134,6 +176,7 @@ function getBuildingsListResponse(response) {
     $('#mixed_type_buildings').text(mixed_use_buildings);
     $('#total_buildings').text(total_buildings);
     if (buildings.length > 0) {
+        // console.log("	458 East 29th Street, Brooklyn, NY 11226, USA");
         $.each(buildings, function (index, building) {
             if (building.images.length == 0) {
                 var buildingImage_src = base_url + '/assets/images/building-icon.png';
@@ -166,6 +209,16 @@ function getBuildingsListResponse(response) {
 
 
 
+        });
+        $('#buildings_table').DataTable({
+            destroy: true, // Ensures reinitialization
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "responsive": true,
+            dom: '<"row"<"col-md-12"f>>rtip' // Ensures the search bar gets col-md-12
         });
     }
     else {

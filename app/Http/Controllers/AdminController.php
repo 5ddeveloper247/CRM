@@ -156,8 +156,13 @@ class AdminController extends Controller
         $body = view('emails.user_created', $mailData);
         $userEmailsSend[] = $user->email;
         // to username, to email, from username, subject, body html
-
-        sendMail($user->first_name, $userEmailsSend, 'GALAXY CRM', 'User Created', $body); // send_to_name, send_to_email, email_from_name, subject, body
+        try{
+            $response = sendMail($user->first_name, $userEmailsSend, 'GALAXY CRM ', 'User Created', $body); // send_to_name, send_to_email, email_from_name, subject, body
+            // dd($response);
+        }catch(\Exception $e){
+            return response()->json(['status' => 500, 'message' => "Failed to send email"]);
+        }
+        
 
 
         return response()->json(['status' => 200, 'message' => "Manager Added Successfully"]);
@@ -268,8 +273,38 @@ class AdminController extends Controller
     }
     public function get_buildings_list()
     {
-        $data['buildings_list'] = Buildings::with('images')->orderBy('created_at', 'Desc')->get();
-
+        // $data['buildings_list'] = Buildings::with('images')->orderBy('created_at', 'Desc')->get();
+        $buildings = Buildings::with('images')->orderBy('created_at', 'Desc');
+        // building_number is request 
+        if(request()->has('building_number') && !empty(request()->building_number)){
+            // dd(request()->building_number);
+            $buildings->where('building_number', 'like', '%'.request()->building_number.'%');
+        }
+        // building_name
+        if(request()->has('building_name') && !empty(request()->building_name)){
+            $buildings->where('building_name', 'like', '%'.request()->building_name.'%');
+        }
+        // building_type
+        if(request()->has('building_type') && !empty(request()->building_type)){
+            $buildings->where('building_type', 'like', '%'.request()->building_type.'%');
+        }
+        // no_of_apartments
+        if(request()->has('no_of_apartments') && !empty(request()->no_of_apartments)){
+            $buildings->where('number_of_apartments', 'like', '%'.request()->no_of_apartments.'%');
+        }
+        // no_of_floors
+        if(request()->has('no_of_floors') && !empty(request()->no_of_floors)){
+            $buildings->where('number_of_floors', 'like', '%'.request()->no_of_floors.'%');
+        }
+        // building_address
+        if(request()->has('building_address') && !empty(request()->building_address)){
+            $buildings->where('building_address', 'like', '%'.request()->building_address.'%');
+        }
+        // status
+        if(request()->has('status') && !empty(request()->status)){
+            $buildings->where('status', 'like', '%'.request()->status.'%');
+        }
+        $data['buildings_list'] = $buildings->get();
         $data['residential_list'] = Buildings::where('building_type', 'Residential')->count();
         $data['commercial_list'] = Buildings::where('building_type', 'Commercial')->count();
         $data['mixed_list'] = Buildings::where('building_type', 'Mixed Use')->count();
@@ -474,7 +509,44 @@ class AdminController extends Controller
 
     public function get_appartments_list()
     {
-        $data['appartments_list'] = Appartment::with('images', 'building')->orderBy('created_at', 'Desc')->get();
+        $appartments = Appartment::with('images', 'building')->orderBy('created_at', 'Desc');
+        // apartment_no is request
+        if(request()->has('apartment_no') && !empty(request()->apartment_no)){
+            $appartments->where('apartment_no', 'like', '%'.request()->apartment_no.'%');
+        }
+        // apartment_name
+        if(request()->has('apartment_name') && !empty(request()->apartment_name)){
+            $appartments->where('apartment_name', 'like', '%'.request()->apartment_name.'%');
+        }
+        // building_name
+        if(request()->has('building_name') && !empty(request()->building_name)){
+            // building from model
+            $appartments->whereHas('building', function($query){
+                $query->where('building_name', 'like', '%'.request()->building_name.'%');
+            });
+        }
+        // apartment_type
+        if(request()->has('apartment_type') && !empty(request()->apartment_type)){
+            $appartments->where('apartment_type', 'like', '%'.request()->apartment_type.'%');
+        }
+        // category
+        if(request()->has('category') && !empty(request()->category)){
+            $appartments->where('category', 'like', '%'.request()->category.'%');
+        }
+        // no_of_rooms
+        if(request()->has('no_of_rooms') && !empty(request()->no_of_rooms)){
+            $appartments->where('number_of_rooms', 'like', '%'.request()->no_of_rooms.'%');
+        }
+        // apartment_size
+        if(request()->has('apartment_size') && !empty(request()->apartment_size)){
+            $appartments->where('apartment_size', 'like', '%'.request()->apartment_size.'%');
+        }
+        // status
+        if(request()->has('status') && !empty(request()->status)){
+            $appartments->where('status', 'like', '%'.request()->status.'%');
+        }
+        // $data['appartments_list'] = Appartment::with('images', 'building')->orderBy('created_at', 'Desc')->get();
+        $data['appartments_list'] = $appartments->get();
         $data['pent_house_appartments_list'] = Appartment::where('apartment_type', 'Penthouse')->count();
         $data['appartment_appartments_list'] = Appartment::where('apartment_type', 'Appartment')->count();
         $data['studio_appartments_list'] = Appartment::where('apartment_type', 'Studio')->count();
@@ -504,7 +576,7 @@ class AdminController extends Controller
             // 'status' => 'required',
             'unit_purchase_price' => 'required|numeric',
             'landlord_name' => 'required|max:50',
-            'landlord_contact_number' => 'required|max:18',
+            'landlord_contact_number' => 'required|max:18|min:7',
             // 'reference_number' => 'required|max:18',
             // 'description' => 'required|max:255',
             'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

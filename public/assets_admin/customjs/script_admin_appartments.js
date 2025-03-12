@@ -5,11 +5,54 @@ $('#add_appartment_btn').click(function () {
 function getappartmentsList() {
     let url = '/admin/getappartments';
     let type = 'GET';
+    let apartment_no = $('#apartment_no_filter').val();
+    let apartment_name = $('#apartment_name_filter').val();
+    let building_name = $('#building_name_filter').val();
+    let category = $('#category_filter').val();
+    let apartment_type = $('#apartment_type_filter').val();
+    let no_of_rooms = $('#no_of_rooms_filter').val();
+    let apartment_size = $('#apartment_size_filter').val();
+    let status = $('#status_filter').val();
+    url += '?apartment_no=' + apartment_no + '&apartment_name=' + apartment_name + '&building_name=' + building_name + '&category=' + category + '&apartment_type=' + apartment_type + '&no_of_rooms=' + no_of_rooms + '&apartment_size=' + apartment_size + '&status=' + status;
     SendAjaxRequestToServer(type, url, '', '', getappartmentsListResponse, '', '');
 }
 
+$(".advance-search").hide();
+$(".advance-minus-icon").hide();
+$(".advance-plus-icon").show();
+$(".advance-search-btn").click(function () {
+    $(".advance-search").toggle();
+    if ($(".advance-search").is(":visible")) {
+        $(".advance-minus-icon").show();
+        $(".advance-plus-icon").hide();
+    } else {
+        $(".advance-minus-icon").hide();
+        $(".advance-plus-icon").show();
+    }
+});
+// building-advance-search-btn
+$("#building-advance-search-btn").on("click", function () {
+    getappartmentsList();
+});
+// advance-reset-btn
+$(".advance-reset-btn").click(function () {
+    // apartment_no_filter
+    $('#apartment_no_filter').val('');
+    $('#apartment_name_filter').val('');
+    $('#building_name_filter').val('');
+    $('#category_filter').val('');
+    $('#apartment_type_filter').val('');
+    $('#no_of_rooms_filter').val('');
+    $('#apartment_size_filter').val('');
+    $('#status_filter').val('');
+    getappartmentsList();
+});
 
 function getappartmentsListResponse(response) {
+    // apartment_table
+    if ($.fn.DataTable.isDataTable('#apartment_table')) {
+        $('#apartment_table').DataTable().destroy();
+    }
     var appartmentsTableBody = $('#appartments_table_body');
     appartmentsTableBody.empty();
     var appartments = response.appartments_list.appartments_list;
@@ -54,6 +97,17 @@ function getappartmentsListResponse(response) {
 
 
 
+        });
+        
+        $('#apartment_table').DataTable({
+            destroy: true, // Ensures reinitialization
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "responsive": true,
+            dom: '<"row"<"col-md-12"f>>rtip' // Ensures the search bar gets col-md-12
         });
     }
     else {
@@ -178,7 +232,7 @@ $('#fileInput').change(function(event) {
             li.innerHTML += `
                 <div class="thumb">
                     <img src="${e.target.result}" alt="">
-                    <button type="button" class="x_btn" onclick="removeFile(${selectedFiles.length - 1})">&times;</button>
+                    <button type="button" class="x_btn" onclick="removeFile(${selectedFiles.length - 1})"></button>
                 </div>
             `;
             previewList.appendChild(li);
@@ -200,7 +254,7 @@ function removeFile(index) {
             li.innerHTML += `
                 <div class="thumb">
                     <img src="${e.target.result}" alt="">
-                    <button type="button" class="x_btn" onclick="removeFile(${idx})">&times;</button>
+                    <button type="button" class="x_btn" onclick="removeFile(${idx})"></button>
                 </div>
             `;
             previewList.appendChild(li);

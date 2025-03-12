@@ -265,7 +265,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
             li.innerHTML += `
                         <div class="thumb">
                             <img src="${e.target.result}" alt="">
-                            <button type="button" class="x_btn" onclick="removeFile(${selectedFiles.length - 1})">&times;</button>
+                            <button type="button" class="x_btn" onclick="removeFile(${selectedFiles.length - 1})"></button>
                         </div>
                     `;
             previewList.appendChild(li);
@@ -287,7 +287,7 @@ function removeFile(index) {
             li.innerHTML += `
                         <div class="thumb">
                             <img src="${e.target.result}" alt="">
-                            <button type="button" class="x_btn" onclick="removeFile(${idx})">&times;</button>
+                            <button type="button" class="x_btn" onclick="removeFile(${idx})"></button>
                         </div>
                     `;
             previewList.appendChild(li);

@@ -200,15 +200,15 @@ function getTaskListResponse(response) {
         }
         if (status == 1 || status == "1") {
             statusTxt = "Assigned";
-            notification_dot_color = "transparent";
+            notification_dot_color = "#89BE3A";
         }
         if (status == 2 || status == "2") {
             statusTxt = "Working On it";
-            notification_dot_color = "green";
+            notification_dot_color = "#FFC300";
         }
         if (status == 3 || status == "3") {
             statusTxt = "Hold";
-            notification_dot_color = "blue";
+            notification_dot_color = "#FF5733";
         }
         if (status == 4 || status == "4") {
             statusTxt = "Stuck";
@@ -222,6 +222,7 @@ function getTaskListResponse(response) {
             statusTxt = "Cancelled";
             notification_dot_color = "red";
         }
+        // console.log(notification_dot_color);
         var taskRow = `<tr class="align-items-center identify">
                                 <td class="nowrap">${index + 1}</td>
                                 <td class="nowrap grid-p-searchby">
@@ -245,9 +246,9 @@ function getTaskListResponse(response) {
                                 }</td>
                                 <td class="nowrap grid-p-searchby" >${
                                     task.manager && task.manager.first_name
-                                        ? task.manager.first_name +
+                                        ? task.manager.first_name || ''+
                                           " " +
-                                          task.manager.last_name
+                                          task.manager.last_name || ''
                                         : "Deleted"
                                 }</td>
                                 <td>${priority}</td>
@@ -258,7 +259,7 @@ function getTaskListResponse(response) {
                                         ? "Viewed"
                                         : "Uploaded"
                                 }</td>
-                                <td class="nowrap grid-p-searchby">${statusTxt}</td>
+                                <td class="nowrap grid-p-searchby"><span style="background-color:${notification_dot_color} !important;color: #fff; padding: 3px;border-radius: 5px;">${statusTxt}</span></td>
                                 
                                
                                 <td class="nowrap" >
@@ -279,6 +280,21 @@ function getTaskListResponse(response) {
                             </tr>`;
         taskTableBody.append(taskRow);
     });
+    if(tasks.length > 0){
+        if ($.fn.DataTable.isDataTable('#task_table')) {
+            $('#task_table').DataTable().destroy();
+        }
+        $('#task_table').DataTable({
+            destroy: true, // Ensures reinitialization
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "responsive": true,
+            dom: '<"row"<"col-md-12"f>>rtip' // Ensures the search bar gets col-md-12
+        });
+    }
     $.each(done_tasks_list, function (index, task) {
         var priority = task.priority;
         if (priority == "0" || priority == 0) {
@@ -356,7 +372,7 @@ function getTaskListResponse(response) {
                                         : "Deleted"
                                 }</td>
                                 <td class="nowrap grid-p-searchby" data-center>${
-                                    task.manager.first_name
+                                    task.manager.first_name || ''
                                 }</td>
                                 <td>${priority}</td>
                                
@@ -462,7 +478,7 @@ function getTaskListResponse(response) {
                                         : "Deleted"
                                 }</td>
                                 <td class="nowrap grid-p-searchby" data-center>${
-                                    task.manager.first_name
+                                    task.manager.first_name || ''
                                 }</td>
                                 <td>${priority}</td>
                                
@@ -857,24 +873,25 @@ function get_filtered_tasksResponse(response) {
                 }
                 if (status == 1 || status == "1") {
                     statusTxt = "Assigned";
-                    notification_dot_color = "transparent";
+                    notification_dot_color = "#89BE3A";
                 }
                 if (status == 2 || status == "2") {
                     statusTxt = "Working On it";
-                    notification_dot_color = "green";
+                    notification_dot_color = "#FFC300";
                 }
                 if (status == 3 || status == "3") {
                     statusTxt = "Hold";
-                    notification_dot_color = "blue";
+                    notification_dot_color = "#FF5733";
                 }
                 if (status == 4 || status == "4") {
                     statusTxt = "Stuck";
-                    notification_dot_color = "yellow";
+                    notification_dot_color = "#9B59B6";
                 }
                 if (status == 5 || status == "5") {
                     statusTxt = "Done";
-                    notification_dot_color = "transparent";
+                    notification_dot_color = "#2ECC71";
                 }
+                console.log(statusTxt, "statusTxt", notification_dot_color);
                 var taskRow = `<tr class="align-items-center identify">
                                         <td class="nowrap">${index + 1}</td>
                                         <td class="nowrap grid-p-searchby"><div title="${statusTxt}" style="position: relative; width: 20px; height: 20px; display:inline;margin-right:15px;">
@@ -890,7 +907,7 @@ function get_filtered_tasksResponse(response) {
                                             task.appartment.apartment_name
                                         }</td>
                                         <td class="nowrap grid-p-searchby" data-center>${
-                                            task.manager.first_name
+                                            task.manager?.first_name || ' '
                                         }</td>
                                         <td>${priority}</td>
                                        
@@ -1079,7 +1096,7 @@ function getfilteredcompletedtasksResponse(response) {
                                             task.appartment.apartment_name
                                         }</td>
                                         <td class="nowrap grid-p-searchby" data-center>${
-                                            task.manager.first_name
+                                            task.manager.first_name || ''
                                         }</td>
                                         <td class="grid-p-searchby">${priority}</td>
                                        
@@ -1108,6 +1125,7 @@ function getfilteredcompletedtasksResponse(response) {
                                     </tr>`;
                 $("#done_tasks_table_body").append(taskRow);
             });
+            
         } else {
             $("#done_tasks_table_body").empty();
             var taskRow = ` <tr colspan="10" data-center><td class="nowrap" data-center colspan="10">No Data Available</td></tr>`;

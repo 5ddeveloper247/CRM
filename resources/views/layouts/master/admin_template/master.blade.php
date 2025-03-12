@@ -15,7 +15,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css"> --}}
+    <!-- DataTables Bootstrap 5 -->
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css"> --}}
+    <!-- DataTables Bootstrap 5 (Version 1.13.8 - Fully Compatible) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
+
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Favicon -->
     <link type="image/png" rel="icon" href="{{ asset('assets/images/favicon.png') }}">
@@ -23,6 +30,13 @@
     <style>
         .is-invalid{
             border: 1px solid red;
+        }
+        .dataTables_filter {
+            text-align: left !important;
+            float: left !important;
+        }
+        li.active {
+            background: #1692c2;
         }
     </style>
 </head> 

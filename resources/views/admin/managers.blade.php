@@ -52,14 +52,14 @@ thead {
         <!-- <div class="card_row flex_row" style="justify-content:end"> -->
         <div class="card_row flex_row" >
             
-        <div class="col">
+        {{-- <div class="col">
                 <div class="card_blk" id="">
                     <div class="icon" style="height:61px"> <img src="{{asset('assets/images/vector-user.svg')}}" alt="" ></div>
                     <strong>
                         
                     </strong>
                 </div>
-            </div>
+            </div> --}}
             <div class="col">
                 <div class="card_blk">
                     <div class="icon" id="total_managers"></div>
@@ -93,12 +93,12 @@ thead {
         </div>
         <div class="top_head mt-5" style="float:right; ">
 
-        <div class="form_blk">
+        {{-- <div class="form_blk">
             <input type="text" name="" id="searchInListing" class="text_box" placeholder="Search here">
             <button type="button"><img src="{{asset('assets/images/icon-search.svg')}}" alt=""></button>
+        </div> --}}
         </div>
-        </div>
-        <div class="br"></div>
+        {{-- <div class="br"></div> --}}
         
         <div class="top_head">
             
@@ -106,23 +106,20 @@ thead {
         </div>
         
         <div class="blk" style="margin-top:50px">
-            <div class="tbl_blk">
-                <table id="managers_table" class="table table-responsive">
+            <div class="">
+                <table id="managers_table" class="table table-striped table-bordered table-hover table-responsive display" style="width:100%">
                     <thead>
                         <tr>
-                            <th width="10">#</th>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th width="40">Contact</th>
-                            <th width="40" >Created Date</th>
-                            <th width="40" data-center>Status</th>
-                            <th width="40" data-center>Action</th>
-                           
+                            <th>Contact</th>
+                            <th>Created Date</th>
+                            <th data-center>Status</th>
+                            <th data-center>Action</th>
                         </tr>
                     </thead>
                     <tbody id="manager_table_body">
-
-                   
                     </tbody>
                 </table>
             </div>

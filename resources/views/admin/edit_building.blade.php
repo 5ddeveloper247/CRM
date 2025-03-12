@@ -174,7 +174,7 @@
                                                                 <li data-id="{{ $image->id }}">
                                                                 <div class="thumb">
                                                                 <img src="{{$image->image_path}}" alt="">
-                                                                <button type="button" class="x_btn" onclick="removeExistingImage(this, '{{ $image->image_path }}')">&times;</button>
+                                                                <button type="button" class="x_btn" onclick="removeExistingImage(this, '{{ $image->image_path }}')"></button>
 
                                                             </div>
                                                             </li>

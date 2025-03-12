@@ -44,6 +44,14 @@
 
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
+<!-- DataTables JavaScript -->
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- DataTables Responsive Extension -->
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 @stack('script')

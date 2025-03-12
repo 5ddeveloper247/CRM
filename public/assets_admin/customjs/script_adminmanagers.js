@@ -75,6 +75,22 @@ function loadManagerListResponse(response) {
 
 
     });
+    // managers if length then add Datatable
+    if (totalManagers > 0) {
+        if ($.fn.DataTable.isDataTable('#managers_table')) {
+            $('#managers_table').DataTable().destroy();
+        }
+        $('#managers_table').DataTable({
+            destroy: true, // Ensures reinitialization
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "responsive": true,
+            dom: '<"row"<"col-md-12"f>>rtip' // Ensures the search bar gets col-md-12
+        });
+    }
 
 
 }

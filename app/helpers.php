@@ -82,11 +82,11 @@ if (!function_exists('sendMail')) {
             $mail_val = [
                 'send_to_name' => $send_to_name,
                 'send_to' => $send_to_email,
-                'email_from' => 'noreply@pancard.com',
+                'email_from' => env('MAIL_FROM_ADDRESS'),
                 'email_from_name' => $email_from_name,
                 'subject' => $subject,
             ];
-
+            // dd($mail_val);
             Mail::send('emails.mail', ['body' => $body], function ($send) use ($mail_val) {
                 $send->from($mail_val['email_from'], $mail_val['email_from_name']);
                 $send->replyto($mail_val['email_from'], $mail_val['email_from_name']);
