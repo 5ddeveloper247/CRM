@@ -38,4 +38,19 @@ class Tasks extends Model
     {
         return $this->belongsTo(User::class, 'manager');
     }
+    // TaskNotifications get latest notification for task
+    public function taskNotifications()
+    {
+        return $this->hasMany(TaskNotifications::class, 'task_id')->latest();
+    }
+    // createdBy
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+    // updatedBy
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

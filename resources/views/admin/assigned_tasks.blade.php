@@ -706,6 +706,51 @@ thead {
         </div>
     </div>
     <!-- delete modal end  -->
+    {{-- detailsPopup --}}
+    <div class="popup sm" data-popup="detailsPopup" id="detailsPopup">
+        <div class="table_dv">
+            <div class="table_cell">
+                <div class="contain">
+                    <div class="_inner editor_blk">
+                        <button type="button" class=" x_btn close_details_modal_default_btn"></button>
+                        <h3 class="text-center">Task Details</h3>
+                        <div class="mt-4" id="task_details_div">
+
+                            {{-- Task Title --}}
+                            <div class="form_blk">
+                                <label for="details_task_title">Task Title</label>
+                                <input type="text" name="details_task_title" id="details_task_title" class="text_box" readonly>
+                            </div>
+                            {{-- Priority --}}
+                            <div class="form_blk">
+                                <label for="details_priority">Priority</label>
+                                <input type="text" name="details_priority" id="details_priority" class="text_box" readonly>
+                            </div>
+                           
+                            {{-- Edit Reason --}}
+                            <div class="form_blk">
+                                <label for="details_edit_reason">Edit Reason</label>
+                                <input type="text" name="details_edit_reason" id="details_edit_reason" class="text_box" readonly>
+                            </div>
+                            {{-- Status --}}
+                            <div class="form_blk">
+                                <label for="details_status">Status</label>
+                                <input type="text" name="details_status" id="details_status" class="text_box" readonly>
+                            </div>
+                             {{-- File Attachment preview --}}
+                             <div class="form_blk">
+                                <label for="details_file_attachment_preview">File Attachment</label>
+                                <div id="details_file_attachment_preview">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- detailsPopup --}}
+    {{-- updateStatusPopup --}}
     <!-- viewdetails modal  -->
 
     <div class="popup lg" data-popup="viewdetailspopup" id="viewdetailspopup">
@@ -723,7 +768,7 @@ thead {
                         <div class="tab-content">
 
                             <div id="task_status_timeline" class="tab-pane fade in active">
-                                <!-- <h6 >Status timeline</h6> -->
+                                <h1 style="text-align: center;">Timeline</h1>
                                 <div id="status_timeline_detailsdiv" class="text-center mt-4"></div>
                             </div>
 

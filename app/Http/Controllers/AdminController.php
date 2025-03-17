@@ -22,6 +22,7 @@ use App\Models\Appartment;
 use App\Models\AppartmentImages;
 use App\Models\Tasks;
 use App\Models\TaskNotifications;
+use App\Models\TaskToDoList;
 use Illuminate\Support\Str;
 
 
@@ -886,7 +887,8 @@ class AdminController extends Controller
     {
         $data['page'] = 'Tasks';
         $data['managers_list'] = User::where('type', 'manager')->where('status', 1)->get();
-        $task = Tasks::where('id', $id)->first();
+        $task = Tasks::where('id', $id)->with('createdBy', 'updatedBy')->first();
+        // dd($task);
         // if($task->status != 5){
         //     return redirect()->back()->with('error','This task is not done yet, you can not edit this task');
         // }
@@ -1167,211 +1169,211 @@ class AdminController extends Controller
     // }
 
     public function update_task(Request $request)
-{
-    $request->validate([
-                'task_title' => 'required|string|max:50',
-                'priority' => 'required|integer',
-                'document_type' => 'required|integer',
-                'building' => 'required|integer',
-                'appartment' => 'required|integer',
-                'manager' => 'required|integer',
-                'description' => 'required',
-                'status' => 'required',
-                'edit_reason' => 'required'
-            ]);
-    
-            if ($request->hasFile('attachment')) {
-                $request->validate([
+    {
+        $request->validate([
+                    'task_title' => 'required|string|max:50',
+                    'priority' => 'required|integer',
                     'document_type' => 'required|integer',
+                    'building' => 'required|integer',
+                    'appartment' => 'required|integer',
+                    'manager' => 'required|integer',
+                    'description' => 'required',
+                    'status' => 'required',
+                    'edit_reason' => 'required'
                 ]);
-            }
+        
+                if ($request->hasFile('attachment')) {
+                    $request->validate([
+                        'document_type' => 'required|integer',
+                    ]);
+                }
 
-    $task = Tasks::findOrFail($request->task_id);
+        $task = Tasks::findOrFail($request->task_id);
 
-    
-    $managerChanged = $task->manager != $request->manager ? true : false;
-    $buildingChanged = $task->building != $request->building ? true : false;
-    $apartmentChanged = $task->apartment != $request->appartment ? true : false;
-    $statusChanged = $task->status != $request->status ? true : false;
+        
+        $managerChanged = $task->manager != $request->manager ? true : false;
+        $buildingChanged = $task->building != $request->building ? true : false;
+        $apartmentChanged = $task->apartment != $request->appartment ? true : false;
+        $statusChanged = $task->status != $request->status ? true : false;
 
-    $reAssignedTask = $statusChanged && $task->status == '5' && $request->status == '1';
-    $reOpenedTask = $statusChanged && $task->status == '6' && $request->status == '1';
+        $reAssignedTask = $statusChanged && $task->status == '5' && $request->status == '1';
+        $reOpenedTask = $statusChanged && $task->status == '6' && $request->status == '1';
 
-    if ($request->hasFile('attachment')) {
-        $this->updateAttachment($task, $request->file('attachment'));
-        $attachmentChanged = true;
-    } else {
-        $attachmentChanged = false;
+        if ($request->hasFile('attachment')) {
+            $this->updateAttachment($task, $request->file('attachment'));
+            $attachmentChanged = true;
+        } else {
+            $attachmentChanged = false;
+        }
+
+        $task->update([
+            'task_title' => $request->task_title,
+            'priority' => $request->priority,
+            'document_type' => $request->document_type,
+            'building' => $request->building,
+            'apartment' => $request->apartment,
+            'manager' => $request->manager,
+            'description' => $request->description,
+            'status' => $request->status,
+            'updated_by' => Auth::id(),
+            'document_status' => $attachmentChanged ? '0' : $task->document_status
+        ]);
+
+        $this->createNotifications($task, $request, $managerChanged, $buildingChanged, $apartmentChanged, $statusChanged, $reAssignedTask, $reOpenedTask, $attachmentChanged);
+
+        $this->sendEmailNotifications($task, $request, $managerChanged);
+
+        return response()->json(['status' => 200, 'message' => "Task Updated Successfully"]);
     }
 
-    $task->update([
-        'task_title' => $request->task_title,
-        'priority' => $request->priority,
-        'document_type' => $request->document_type,
-        'building' => $request->building,
-        'apartment' => $request->apartment,
-        'manager' => $request->manager,
-        'description' => $request->description,
-        'status' => $request->status,
-        'updated_by' => Auth::id(),
-        'document_status' => $attachmentChanged ? '0' : $task->document_status
-    ]);
+    private function updateAttachment($task, $uploadedFile)
+    {
+        $del_path = str_replace(url('/public/'), '', $task->document);
+        deleteImage($del_path);
+        $path = '/uploads/tasks_attachments/' . $task->id;
+        $savedFile = saveSingleImage($uploadedFile, $path);
+        $task->document = url('/public/') . $savedFile;
+        $task->save();
+    }
 
-    $this->createNotifications($task, $request, $managerChanged, $buildingChanged, $apartmentChanged, $statusChanged, $reAssignedTask, $reOpenedTask, $attachmentChanged);
+    private function createNotifications($task, $request, $managerChanged, $buildingChanged, $apartmentChanged, $statusChanged, $reAssignedTask, $reOpenedTask, $attachmentChanged)
+    {
+        
+        $manager = User::find($task->manager);
+        $notificationData = [
+            'task_id' => $request->task_id,
+            'manager_email' => $manager->email,
+            'admin_email' => env('ADMIN_EMAIL'),
+            'comment' => $request->edit_reason,
+            'created_by' => Auth::id(),
+            'task_status' => $request->status
+        ];
 
-    $this->sendEmailNotifications($task, $request, $managerChanged);
+        if ($statusChanged) {
+            if ($reAssignedTask) {
+                $notificationData['task_status'] = 11; // Reassigned
+                $notificationData['action'] = 'Improvements Needed';
+                $this->saveNotification($notificationData);
+            }
+            if ($reOpenedTask) {
+                $notificationData['task_status'] = 22; // Reopened
+                $notificationData['action'] = 'Task Continued';
+                $this->saveNotification($notificationData);
+            }
+            if($reAssignedTask == false && $reOpenedTask== false){
+                $notificationData['task_status'] = $request->status;
+                $notificationData['action'] = 'Task Status Updated';
+                $notificationData['comment'] = $request->edit_reason;
+                $this->saveNotification($notificationData);
+            }
+        }
 
-    return response()->json(['status' => 200, 'message' => "Task Updated Successfully"]);
-}
-
-private function updateAttachment($task, $uploadedFile)
-{
-    $del_path = str_replace(url('/public/'), '', $task->document);
-    deleteImage($del_path);
-    $path = '/uploads/tasks_attachments/' . $task->id;
-    $savedFile = saveSingleImage($uploadedFile, $path);
-    $task->document = url('/public/') . $savedFile;
-    $task->save();
-}
-
-private function createNotifications($task, $request, $managerChanged, $buildingChanged, $apartmentChanged, $statusChanged, $reAssignedTask, $reOpenedTask, $attachmentChanged)
-{
-    
-    $manager = User::find($task->manager);
-    $notificationData = [
-        'task_id' => $request->task_id,
-        'manager_email' => $manager->email,
-        'admin_email' => env('ADMIN_EMAIL'),
-        'comment' => $request->edit_reason,
-        'created_by' => Auth::id(),
-        'task_status' => $request->status
-    ];
-
-    if ($statusChanged) {
-        if ($reAssignedTask) {
-            $notificationData['task_status'] = 11; // Reassigned
-            $notificationData['action'] = 'Improvements Needed';
+        if ($managerChanged) {
+            $notificationData['action'] = 'Manager Changed';
+            $notificationData['comment'] = 'Manager Changed to ';
             $this->saveNotification($notificationData);
         }
-        if ($reOpenedTask) {
-            $notificationData['task_status'] = 22; // Reopened
-            $notificationData['action'] = 'Task Continued';
-            $this->saveNotification($notificationData);
-        }
-        if($reAssignedTask == false && $reOpenedTask== false){
-            $notificationData['task_status'] = $request->status;
-            $notificationData['action'] = 'Task Status Updated';
+
+        if ($buildingChanged) {
+            $notificationData['action'] = 'Building Changed';
             $notificationData['comment'] = $request->edit_reason;
             $this->saveNotification($notificationData);
         }
+
+        if ($apartmentChanged) {
+            $notificationData['action'] = 'Apartment Changed';
+            $notificationData['comment'] = $request->edit_reason;
+            $this->saveNotification($notificationData);
+        }
+
+        if ($attachmentChanged) {
+            $notificationData['action'] = 'Document Updated';
+            $notificationData['comment'] = $request->edit_reason;
+            $this->saveNotification($notificationData);
+        }
+
+        // Save the default notification
+        if (!$statusChanged && !$managerChanged && !$buildingChanged && !$apartmentChanged && !$attachmentChanged) {
+            $notificationData['action'] = 'Task Updated';
+            $this->saveNotification($notificationData);
+        }
     }
 
-    if ($managerChanged) {
-        $notificationData['action'] = 'Manager Changed';
-        $notificationData['comment'] = 'Manager Changed to ';
-        $this->saveNotification($notificationData);
+    private function saveNotification($data)
+    {
+        $user  = Auth::user();
+        if($user->type=='admin'){
+            $data['created_by'] = '1';
+        }
+        else{
+            $data['created_by'] = '2';
+        }
+        $task_id =$data['task_id'];
+        $task = Tasks::find($task_id);
+        $data['manager_id'] = $task->manager;
+        TaskNotifications::create($data);
     }
 
-    if ($buildingChanged) {
-        $notificationData['action'] = 'Building Changed';
-        $notificationData['comment'] = $request->edit_reason;
-        $this->saveNotification($notificationData);
+    private function sendEmailNotifications($task, $request, $managerChanged)
+    {
+        $manager = User::find($task->manager);
+        $building = Buildings::find($task->building);
+        $apartment = Appartment::find($task->apartment);
+
+        $mailData = [
+            'name' => trim(($manager->first_name ?? '') . ' ' . ($manager->middle_name ?? '') . ' ' . ($manager->last_name ?? '')),
+            'task_title' => $task->task_title,
+            'description' => $task->description,
+            'building' => $building->building_name,
+            'appartment' => $apartment->apartment_name,
+            'maintext' => $managerChanged ? 'You have been assigned new task, kindly check the details below' : null,
+            'date' => date('d F y'),
+            'comment' => $request->edit_reason,
+            'statustxt' => $this->getStatusText($request->status)
+        ];
+
+        $userEmailsSend[] = $manager->email;
+
+        if ($managerChanged) {
+            $body = view('emails.assign_task', $mailData);
+            sendMail($mailData['name'], $userEmailsSend, 'GALAXY CRM', 'Task Assigned', $body);
+        } else {
+            $body = view('emails.task_status_update', $mailData);
+            sendMail($manager->first_name, $userEmailsSend, 'GALAXY CRM', 'Task Status Updated', $body);
+        }
+
+        // send mail to admin
+        $mailData1 = $mailData;
+        $mailData1['name'] = 'ADMIN';
+        $body = view('emails.task_status_update', $mailData1);
+        sendMail('Admin', env('ADMIN_EMAIL'), 'GALAXY CRM', 'Task Status Updated', $body);
     }
 
-    if ($apartmentChanged) {
-        $notificationData['action'] = 'Apartment Changed';
-        $notificationData['comment'] = $request->edit_reason;
-        $this->saveNotification($notificationData);
+    private function getStatusText($status)
+    {
+        switch ($status) {
+            case 0:
+                return 'Draft';
+            case 1:
+                return 'Assigned';
+            case 2:
+                return 'Working On it';
+            case 3:
+                return 'Hold';
+            case 4:
+                return 'Stuck';
+            case 5:
+                return 'Done';
+            case 6:
+                return 'Cancelled';
+            case 11:
+                return 'Reassigned';
+            case 22:
+                return 'Reopened';
+            default:
+                return 'Unknown Status';
+        }
     }
-
-    if ($attachmentChanged) {
-        $notificationData['action'] = 'Document Updated';
-        $notificationData['comment'] = $request->edit_reason;
-        $this->saveNotification($notificationData);
-    }
-
-    // Save the default notification
-    if (!$statusChanged && !$managerChanged && !$buildingChanged && !$apartmentChanged && !$attachmentChanged) {
-        $notificationData['action'] = 'Task Updated';
-        $this->saveNotification($notificationData);
-    }
-}
-
-private function saveNotification($data)
-{
-    $user  = Auth::user();
-    if($user->type=='admin'){
-        $data['created_by'] = '1';
-    }
-    else{
-        $data['created_by'] = '2';
-    }
-    $task_id =$data['task_id'];
-    $task = Tasks::find($task_id);
-    $data['manager_id'] = $task->manager;
-    TaskNotifications::create($data);
-}
-
-private function sendEmailNotifications($task, $request, $managerChanged)
-{
-    $manager = User::find($task->manager);
-    $building = Buildings::find($task->building);
-    $apartment = Appartment::find($task->apartment);
-
-    $mailData = [
-        'name' => trim(($manager->first_name ?? '') . ' ' . ($manager->middle_name ?? '') . ' ' . ($manager->last_name ?? '')),
-        'task_title' => $task->task_title,
-        'description' => $task->description,
-        'building' => $building->building_name,
-        'appartment' => $apartment->apartment_name,
-        'maintext' => $managerChanged ? 'You have been assigned new task, kindly check the details below' : null,
-        'date' => date('d F y'),
-        'comment' => $request->edit_reason,
-        'statustxt' => $this->getStatusText($request->status)
-    ];
-
-    $userEmailsSend[] = $manager->email;
-
-    if ($managerChanged) {
-        $body = view('emails.assign_task', $mailData);
-        sendMail($mailData['name'], $userEmailsSend, 'GALAXY CRM', 'Task Assigned', $body);
-    } else {
-        $body = view('emails.task_status_update', $mailData);
-        sendMail($manager->first_name, $userEmailsSend, 'GALAXY CRM', 'Task Status Updated', $body);
-    }
-
-    // send mail to admin
-    $mailData1 = $mailData;
-    $mailData1['name'] = 'ADMIN';
-    $body = view('emails.task_status_update', $mailData1);
-    sendMail('Admin', env('ADMIN_EMAIL'), 'GALAXY CRM', 'Task Status Updated', $body);
-}
-
-private function getStatusText($status)
-{
-    switch ($status) {
-        case 0:
-            return 'Draft';
-        case 1:
-            return 'Assigned';
-        case 2:
-            return 'Working On it';
-        case 3:
-            return 'Hold';
-        case 4:
-            return 'Stuck';
-        case 5:
-            return 'Done';
-        case 6:
-            return 'Cancelled';
-        case 11:
-            return 'Reassigned';
-        case 22:
-            return 'Reopened';
-        default:
-            return 'Unknown Status';
-    }
-}
 
 
     public function delete_task(Request $request)
@@ -1678,265 +1680,14 @@ private function getStatusText($status)
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // get_task_details
+    public function get_task_details(Request $request)
+    {
+        $task_id = $request->task_id;
+        // get latest TaskNotifications
+        $task = Tasks::with('building', 'appartment', 'manager','taskNotifications')->where('id', $task_id)->first();
+        return response()->json(['status' => 200, 'task' => $task]);
+    }   
+    
 
 }

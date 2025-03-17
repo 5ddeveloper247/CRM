@@ -264,13 +264,23 @@ function getTaskListResponse(response) {
                                
                                 <td class="nowrap" >
                                     <div class="act_btn">
-                                    <button type="button" class="pop_btn viewdetailsbtn" title="View Timeline" data-id = "${
+                                    <button type="button" class="pop_btn timeline2 viewdetailsbtn" title="View Timeline" data-id = "${
                                         task.id
-                                    }" data-popup="viewdetailspopup"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg></button>
+                                    }" data-popup="viewdetailspopup">
+                                        
+                                    </button>
+                                    <button type="button" class="pop_btn detailsBtn" title="View Details" data-id = "${
+                                        task.id
+                                    }" data-popup="detailsPopup">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg>
+                                    </button>
+                                    
+                                    
 
                                     <a href="/admin/tasks/${
                                         task.id
                                     }/edit" class="edit  edit_btn" title="Edit"></a>
+                                    
                                    
                                     <button type="button" class="del pop_btn delete_btn" title="Delete" data-id = "${
                                         task.id
@@ -387,9 +397,18 @@ function getTaskListResponse(response) {
                                
                                 <td class="nowrap" data-center>
                                     <div class="act_btn">
-                                    <button type="button" class="pop_btn viewdetailsbtn" title="View Timeline" data-id = "${
+                                    
+                                    
+                                    <button type="button" class="pop_btn timeline2 viewdetailsbtn" title="View Timeline" data-id = "${
                                         task.id
-                                    }" data-popup="viewdetailspopup"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg></button>
+                                    }" data-popup="viewdetailspopup">
+                                        
+                                    </button>
+                                    <button type="button" class="pop_btn detailsBtn" title="View Details" data-id = "${
+                                        task.id
+                                    }" data-popup="detailsPopup">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg>
+                                    </button>
                                     <a href="/admin/tasks/${
                                         task.id
                                     }/edit" class="edit  edit_btn" title="Edit"></a>
@@ -493,9 +512,18 @@ function getTaskListResponse(response) {
                                
                                 <td class="nowrap" data-center>
                                     <div class="act_btn">
-                                    <button type="button" class="pop_btn viewdetailsbtn" title="View Timeline" data-id = "${
+                                    
+                                    
+                                    <button type="button" class="pop_btn timeline2 viewdetailsbtn" title="View Timeline" data-id = "${
                                         task.id
-                                    }" data-popup="viewdetailspopup"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg></button>
+                                    }" data-popup="viewdetailspopup">
+                                        
+                                    </button>
+                                    <button type="button" class="pop_btn detailsBtn" title="View Details" data-id = "${
+                                        task.id
+                                    }" data-popup="detailsPopup">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg>
+                                    </button>
                                     <a href="/admin/tasks/${
                                         task.id
                                     }/edit" class="edit  edit_btn" title="Edit"></a>
@@ -586,6 +614,109 @@ $(document).on("click", ".viewdetailsbtn", function () {
         ""
     );
 });
+// detailsBtn
+$(document).on("click", ".detailsBtn", function () {
+    var task_id = $(this).attr("data-id");
+    let data = new FormData();
+
+    data.append("task_id", task_id);
+    let type = "POST";
+    let url = "/admin/getTaskDetails";
+    SendAjaxRequestToServer(
+        type,
+        url,
+        data,
+        "",
+        getTaskDetailsResponse,
+        "",
+        ""
+    );
+});
+// getTaskDetailsResponse
+function getTaskDetailsResponse(response) {
+    var task_details = response.task;
+    console.log(task_details);
+    // details_task_title
+    $("#details_task_title").val(task_details.task_title);
+    // details_priority
+    
+    // details_file_attachment_preview append here
+    if (task_details.document) {
+        let fileUrl = task_details.document;
+        let fileExtension = fileUrl.split('.').pop().toLowerCase();
+        
+        // Define file type icons
+        let icons = {
+            'pdf': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16"><path d="M5.5 7.5v1H7v-1H5.5z"/><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5zm-4-2v3h3L10 2.5z"/></svg>',
+            'doc': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-word" viewBox="0 0 16 16"><path d="M5.5 7.5v1H7v-1H5.5z"/><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5zm-4-2v3h3L10 2.5z"/></svg>',
+            'docx': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-word" viewBox="0 0 16 16"><path d="M5.5 7.5v1H7v-1H5.5z"/><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5zm-4-2v3h3L10 2.5z"/></svg>',
+            'xls': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16"><path d="M5.5 7.5v1H7v-1H5.5z"/><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5zm-4-2v3h3L10 2.5z"/></svg>',
+            'xlsx': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16"><path d="M5.5 7.5v1H7v-1H5.5z"/><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5zm-4-2v3h3L10 2.5z"/></svg>',
+            'jpg': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-image" viewBox="0 0 16 16"><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5zm-4-2v3h3L10 2.5z"/></svg>',
+            'png': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-image" viewBox="0 0 16 16"><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5zm-4-2v3h3L10 2.5z"/></svg>',
+            'zip': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-zip" viewBox="0 0 16 16"><path d="M5.5 7.5v1H7v-1H5.5z"/><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5zm-4-2v3h3L10 2.5z"/></svg>'
+        };
+    
+        // Default icon if no match found
+        let fileIcon = icons[fileExtension] || '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16"><path d="M14 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6.5L14 4.5zm-4-2v3h3L10 2.5z"/></svg>';
+    
+        // Append the preview button with dynamic icon
+        $("#details_file_attachment_preview").html(
+            `<a href="${fileUrl}" target="_blank" class="btn btn-primary btn-sm" style="border-radius: 5px; font-size: 9px;" title="Preview Attachment">
+                ${fileIcon}
+            </a>`
+        );
+    }
+    
+    // details_priority
+    let details_priority = task_details.priority;
+    switch (details_priority) {
+        case 0:
+            $("#details_priority").val("Low");
+            break;
+        case 1:
+            $("#details_priority").val("Medium");
+            break;
+        case 2:
+            $("#details_priority").val("Urgent");
+            break;
+        default:
+            $("#details_priority").val("N/A");
+            break;
+    }
+    // details_edit_reason
+    $("#details_edit_reason").val(task_details?.task_notifications[0]?.comment || "N/A");
+    // details_status
+    let details_status = task_details.status;
+    switch (details_status) {
+        case 0:
+            $("#details_status").val("Draft");
+            break;
+        case 1:
+            $("#details_status").val("Assigned");
+            break;
+        case 2:
+            $("#details_status").val("Working On it");
+            break;
+        case 3:
+            $("#details_status").val("Hold");
+            break;
+        case 4:
+            $("#details_status").val("Stuck");
+            break;
+        case 5:
+            $("#details_status").val("Done");
+
+            break;
+        case 6:
+            $("#details_status").val("Cancelled");
+            break;
+        default:
+            $("#details_status").val("N/A");
+            break;
+    }
+}
+
 
 function gettimelinesdetailResponse(response) {
     var status_timeline_details = response.data.status_timeline_details;
@@ -614,15 +745,16 @@ function gettimelinesdetailResponse(response) {
                     </div>
                     <div class="cd-timeline-content">
                         <p>
+                           
                             <strong>Action:</strong> ${item.action}
                             ${
                                 item.task_status == 1 && (item.comment=='Task Assigned to' || item.comment =='Manager Changed to ')
                                     ? `<button class="btn btn-sm bg-transparent" style="background:transparent;" data-toggle="tooltip" data-placement="top" title="${
                                           item.comment
                                       } ${
-                                          item.manager.first_name +
+                                          item.manager?.first_name || '' +
                                           " " +
-                                          item.manager.last_name
+                                          item.manager?.last_name || ''
                                       }">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24">
                                         <path fill="#0078b9" d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2.033 16.01c.564-1.789 1.632-3.932 1.821-4.474.273-.787-.211-1.136-1.74.209l-.34-.64c1.744-1.897 5.335-2.326 4.113.613-.763 1.835-1.309 3.074-1.621 4.03-.455 1.393.694.828 1.819-.211.153.25.203.331.356.619-2.498 2.378-5.271 2.588-4.408-.146zm4.742-8.169c-.532.453-1.32.443-1.761-.022-.441-.465-.367-1.208.164-1.661.532-.453 1.32-.442 1.761.022.439.466.367 1.209-.164 1.661z"/>
@@ -938,10 +1070,17 @@ function get_filtered_tasksResponse(response) {
                                        
                                         <td class="nowrap" data-center>
                                             <div class="act_btn">
-                                            <button type="button" class="pop_btn viewdetailsbtn" title="View" data-id = "${
+                                            
+                                            <button type="button" class="pop_btn timeline2 viewdetailsbtn" title="View Timeline" data-id = "${
                                                 task.id
-                                            }" data-popup="viewdetailspopup"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg></button>
-                                           
+                                            }" data-popup="viewdetailspopup">
+                                                
+                                            </button>
+                                           <button type="button" class="pop_btn detailsBtn" title="View Details" data-id = "${
+                                                task.id
+                                            }" data-popup="detailsPopup">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg>
+                                            </button>
                                             <a href="/admin/tasks/${
                                                 task.id
                                             }/edit" class="edit  edit_btn" title="Edit"></a>
@@ -1127,9 +1266,17 @@ function getfilteredcompletedtasksResponse(response) {
                                        
                                         <td class="nowrap" data-center>
                                             <div class="act_btn">
-                                            <button type="button" class="pop_btn viewdetailsbtn" title="View" data-id = "${
+                                            
+                                            <button type="button" class="pop_btn timeline2 viewdetailsbtn" title="View Timeline" data-id = "${
                                                 task.id
-                                            }" data-popup="viewdetailspopup"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg></button>
+                                            }" data-popup="viewdetailspopup">
+                                                
+                                            </button>
+                                            <button type="button" class="pop_btn detailsBtn" title="View Details" data-id = "${
+                                                task.id
+                                            }" data-popup="detailsPopup">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg>
+                                            </button>
                                             <a href="/admin/tasks/${
                                                 task.id
                                             }/edit" class="edit  edit_btn" title="Edit"></a>

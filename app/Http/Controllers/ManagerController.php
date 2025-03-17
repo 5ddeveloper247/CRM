@@ -233,6 +233,7 @@ class ManagerController extends Controller
             }
             else{
                 $task->status = $request->status;
+                $task->updated_by = Auth::id();
                 $task->save();
                 $task = Tasks::with('building','appartment', 'manager')->where('id', $request->task_id)->first();
                 $manager = User::find($task->manager);

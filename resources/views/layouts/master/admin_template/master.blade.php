@@ -38,6 +38,9 @@
         li.active {
             background: #1692c2;
         }
+        .act_btn>button.timeline2 {
+            background-image: url("{{ asset('assets/images/timing.png') }}");
+        }
     </style>
 </head> 
 <script>

@@ -86,6 +86,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/getTasksList', [AdminController::class, 'get_tasks_list'])->name('admin.getTasksList');
         Route::post('/updateTask', [AdminController::class, 'update_task'])->name('admin.updateTask');
         Route::post('/deleteTask', [AdminController::class, 'delete_task'])->name('admin.deleteTask');
+        // getTaskDetails
+        Route::post('/getTaskDetails', [AdminController::class, 'get_task_details'])->name('admin.getTaskDetails');
         Route::post('/gettimelinesdetail', [ManagerController::class, 'get_time_line_details'])->name('manager.gettimelinesdetail');
         Route::post('/getfilteredtasks', [AdminController::class, 'get_filtered_tasks'])->name('admin.getfilteredtasks');
         Route::post('/getfilteredcompletedtasks', [AdminController::class, 'get_filtered_done_tasks'])->name('admin.getfilteredcompletedtasks');

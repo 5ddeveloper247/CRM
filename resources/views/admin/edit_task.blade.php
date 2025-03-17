@@ -131,7 +131,8 @@
                             <div class="form-control text_box" style="padding-top:14px" id="fileuploadnamecontainer">
                                 <span id="fileName">
                                     @php
-                                        echo str_replace(url('/public/uploads/tasks_attachments/'.$task->id.'/'), '', $task->document);
+                                        // echo str_replace(url('/public/uploads/tasks_attachments/'.$task->id.'/'), '', $task->document);
+                                        echo basename($task->document);
                                     @endphp
                                 </span>
 
@@ -177,11 +178,25 @@
                     <div class="col-xs-12 " id="edit_reason_div">
                         <div class="form_blk">
                             <h6>Edit Reason<sup>*</sup></h6>
-                            <textarea name="edit_reason" id="edit_reason"style="height: 89px; width: 931px;" class="text_box form-control"></textarea>
+                            <textarea name="edit_reason" id="edit_reason"style="height: 89px;" class="text_box form-control"></textarea>
 
                         </div>
                     </div>
+                    {{-- createdBy Name --}}
+                    <div class="col-xs-6">
+                        <div class="form_blk">
+                            <h6>Created By: <sup>{{ $task->createdBy->first_name ?? "N/A" }}&nbsp;{{ $task->createdBy->last_name ?? "N/A" }}</sup></h6>
+                        </div>
+                    </div>
+                    {{-- updatedBy --}}
+                    <div class="col-xs-6" style="text-align: right;">
+                        <div class="form_blk">
+                            <h6>Updated By: <sup>{{ $task->updatedBy->first_name ?? "N/A"}}&nbsp;{{ $task->updatedBy->last_name ?? "N/A" }}</sup></h6>
+                        </div>
+                    </div>
                 </div>
+                
+                
                 <div class="btn_blk form_btn text-center">
                     <button type="submit" class="site_btn long updatetaskbtn" id="updatetaskbtn">Update</button>
                     <a href="{{ url('admin/tasks') }}" class="site_btn long btn-btn-danger"
